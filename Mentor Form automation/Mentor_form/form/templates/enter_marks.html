@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Enter Marks{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h1>Enter Marks</h1>
+        <form method="POST" class="bg-white p-4 border rounded shadow-sm">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#id_sem').change(function () {
+                var url = "{% url 'load_subjects' %}";  // get the url of the `load_subjects` view
+                var semId = $(this).val();  // get the selected semester ID from the HTML input
+
+                $.ajax({
+                    url: url,
+                    data: {
+                        'sem': semId
+                    },
+                    success: function (data) {
+                        $("#id_subject_name").html('<option value="">Select Subject</option>');
+                        for (var i = 0; i < data.length; i++) {
+                            $("#id_subject_name").append('<option value="' + data[i].id + '">' + data[i].subject_name + '</option>');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

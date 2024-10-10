@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: url('{% static "l.jpg" %}') no-repeat center center;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .login-container {
+            width: 400px;
+            background: rgba(255, 255, 255, 0.2); /* More transparent background */
+            border: 2px solid rgba(255, 255, 255, 0.5); /* Semi-transparent border */
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); /* Slightly stronger shadow for visibility */
+            backdrop-filter: blur(10px); /* Frosted glass effect */
+            text-align: center; /* Centered text alignment */
+        }
+
+        .login-container h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #000000; /* White text for better contrast */
+        }
+
+        .login-container form {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center form elements */
+        }
+
+        .login-container .form-group {
+            width: 100%;
+            margin-bottom: 20px; /* Spacing between form elements */
+            text-align: left; /* Align labels to the left */
+        }
+
+        .login-container label {
+            font-size: 14px;
+            color:#000000; /* White label text for better contrast */
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .login-container input[type="text"] {
+            width: 100%;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.3); /* Semi-transparent input background */
+            border: 2px solid rgba(255, 255, 255, 0.5); /* Semi-transparent border */
+            border-radius: 25px;
+            font-size: 16px;
+            color:#000000; /* White text for better readability */
+            padding: 10px 20px;
+        }
+
+        .login-container input[type="text"]::placeholder {
+            color: rgba(255, 255, 255, 0.7); /* Light placeholder color */
+        }
+
+        .login-container button {
+            width: 100%;
+            height: 45px;
+            background: linear-gradient(135deg, rgba(9, 9, 9, 0.8), rgba(133, 131, 131, 0.8));
+            border: none;
+            border-radius: 25px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Slightly stronger shadow for visibility */
+            transition: background 0.3s ease;
+        }
+
+        .login-container button:hover {
+            background: linear-gradient(135deg, rgba(133, 131, 131, 0.8), rgba(9, 9, 9, 0.8));
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 15px;
+            text-align: center; /* Center error message */
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Student Login</h1>
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+        <form method="post" action="{% url 'student_login' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="usn">USN:</label>
+                <input type="text" id="usn" name="usn" required placeholder="Enter your USN">
+            </div>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required placeholder="Enter your name">
+            </div>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+</body>
+</html>

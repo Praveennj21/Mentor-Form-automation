@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e2e2e2, #ffffff);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            margin-top: 20px;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #343a40;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .search-container {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-container input[type="text"] {
+            padding: 12px;
+            font-size: 1.25rem;
+            width: 60%;
+            max-width: 600px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            margin-right: 10px;
+        }
+
+        .search-container button {
+            padding: 12px 20px;
+            font-size: 1.25rem;
+            border-radius: 8px;
+            color: #ffffff;
+            background-color: #343a40;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-container button:hover {
+            background-color: #495057;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #dee2e6;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #ffffff;
+            font-size: 1.2rem;
+        }
+
+        td {
+            background-color: #ffffff;
+            font-size: 1rem;
+        }
+
+        /* Adjust column widths */
+        .col-detail {
+            width: 30%;
+        }
+
+        .col-usn {
+            width: 20%;
+        }
+
+        .col-branch {
+            width: 20%;
+        }
+
+        .btn-enter-marks, .btn-info, .btn-primary {
+            font-size: 1rem;
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin: 5px;
+        }
+
+        .btn-enter-marks {
+            background-color: #007bff;
+            border-color: #007bff;
+            color: #fff;
+        }
+
+        .btn-enter-marks:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+        .btn-info {
+            background-color: #17a2b8;
+            border-color: #17a2b8;
+            color: #fff;
+        }
+
+        .btn-info:hover {
+            background-color: #138496;
+            border-color: #117a8b;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+        #noResultsMessage {
+            text-align: center;
+            color: #dc3545;
+            font-size: 1.2rem;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Student List</h1>
+
+        <!-- Search Container -->
+        <div class="search-container">
+            <input type="text" id="usnSearch" placeholder="Search by USN">
+            <button onclick="searchUSN()">Search</button>
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="col-detail">Detail</th>
+                    <th class="col-usn">USN</th>
+                    <th class="col-branch">Branch</th>
+                    <th>Actions</th>
+                    <th>PDF</th>
+                </tr>
+            </thead>
+            <tbody id="studentTable">
+                {% for student in students %}
+                <tr class="student-row" data-usn="{{ student.usn }}">
+                    <td>{{ student.detail }}</td>
+                    <td>{{ student.usn }}</td>
+                    <td>{{ student.branch }}</td>
+                    <td>
+                        <a href="{% url 'student_marks' student.id %}" class="btn btn-info btn-sm">View Marks</a>
+                        <a href="{% url 'enter_marks_view' student.usn %}" class="btn btn-primary btn-sm">Enter Marks</a>
+                        <a href="{% url 'export_student_marks' student.id %}" class="btn btn-primary btn-sm">Export Marks</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'generate_pdf' student.id %}" class="btn btn-primary btn-sm">Download PDF</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- No Results Message -->
+        <p id="noResultsMessage">No students found for the given USN.</p>
+    </div>
+
+    <script>
+        function searchUSN() {
+            let input = document.getElementById('usnSearch').value.toUpperCase();
+            let studentRows = document.getElementsByClassName('student-row');
+            let noResults = true;
+
+            for (let i = 0; i < studentRows.length; i++) {
+                let usn = studentRows[i].getAttribute('data-usn').toUpperCase();
+                if (usn.indexOf(input) > -1) {
+                    studentRows[i].style.display = '';
+                    noResults = false;
+                } else {
+                    studentRows[i].style.display = 'none';
+                }
+            }
+
+            document.getElementById('noResultsMessage').style.display = noResults ? '' : 'none';
+        }
+    </script>
+</body>
+</html>

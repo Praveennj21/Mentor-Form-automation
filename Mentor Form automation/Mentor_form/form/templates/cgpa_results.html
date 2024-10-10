@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CGPA Results</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4; /* Light Gray */
+            margin: 0;
+            padding: 0;
+            color: #333; /* Charcoal Gray */
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #00274d; /* Deep Navy Blue */
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            font-weight: 700;
+            border-bottom: 2px solid #008080; /* Teal */
+            padding-bottom: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            font-size: 1.1rem;
+            padding: 12px 24px;
+            border-radius: 6px;
+            color: #ffffff;
+            text-align: center;
+            text-decoration: none;
+            background: linear-gradient(135deg, #00274d, #008080); /* Deep Navy Blue to Teal */
+            border: 1px solid #00274d;
+            transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg, #001a33, #006d6d); /* Darker Navy Blue to Darker Teal */
+            border-color: #001a33;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .search-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .search-container input[type="text"] {
+            padding: 12px;
+            font-size: 1.1rem;
+            width: 100%;
+            max-width: 400px;
+            border: 2px solid #008080; /* Teal */
+            border-radius: 6px;
+            margin-right: 10px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-container input[type="text"]:focus {
+            border-color: #00274d; /* Deep Navy Blue */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+            outline: none;
+        }
+
+        .search-container button {
+            padding: 12px 24px;
+            font-size: 1.1rem;
+            border-radius: 6px;
+            color: #ffffff;
+            background: #ff6f61; /* Soft Coral */
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-container button:hover {
+            background-color: #e55b50; /* Darker Coral */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        thead th {
+            background: #00274d; /* Deep Navy Blue */
+            color: #ffffff;
+            text-align: center;
+            padding: 15px;
+            font-weight: 700;
+            border-bottom: 2px solid #008080; /* Teal */
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9; /* Light Gray */
+        }
+
+        tbody tr:hover {
+            background-color: #e2e6ea; /* Light Hover Gray */
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        td {
+            color: #495057; /* Dark Gray */
+        }
+
+        #noResultsMessage {
+            display: none;
+            text-align: center;
+            color: #dc3545; /* Red */
+            font-size: 1.2rem;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CGPA Results</h1>
+
+        <!-- Search Container -->
+        <div class="search-container">
+            <input type="text" id="usnSearch" placeholder="Search by USN">
+            <button onclick="searchUSN()">Search</button>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>USN</th>
+                    <th>CGPA</th>
+                </tr>
+            </thead>
+            <tbody id="cgpaTable">
+                {% for usn, data in results.items %}
+                <tr class="cgpa-row" data-usn="{{ usn }}">
+                    <td>{{ usn }}</td>
+                    <td>{{ data.cgpa }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="2">No results available</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- No Results Message -->
+        <p id="noResultsMessage">No results found for the given USN.</p>
+    </div>
+
+    <script>
+        function searchUSN() {
+            // Get the value of the input field
+            let input = document.getElementById('usnSearch').value.toUpperCase();
+            // Get all the CGPA rows
+            let cgpaRows = document.getElementsByClassName('cgpa-row');
+            let noResults = true; // Flag to check if no results are found
+
+            // Loop through all CGPA rows and hide or show them
+            for (let i = 0; i < cgpaRows.length; i++) {
+                let usn = cgpaRows[i].getAttribute('data-usn').toUpperCase();
+                if (usn.indexOf(input) > -1) {
+                    cgpaRows[i].style.display = '';
+                    noResults = false;
+                } else {
+                    cgpaRows[i].style.display = 'none';
+                }
+            }
+
+            // Display the "No Results" message if no USN matches
+            document.getElementById('noResultsMessage').style.display = noResults ? '' : 'none';
+        }
+    </script>
+</body>
+</html>

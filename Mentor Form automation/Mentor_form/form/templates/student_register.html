@@ -1,0 +1,120 @@
+
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: url('{% static "l.jpg" %}') no-repeat center center;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .register-container {
+            width: 400px;
+            background: rgba(255, 255, 255, 0.2); /* Transparent background */
+            border: 2px solid rgba(255, 255, 255, 0.5); /* Border for visibility */
+            border-radius: 12px;
+            padding: 30px 40px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Slightly stronger shadow for contrast */
+            backdrop-filter: blur(8px); /* Blur effect for a frosted glass look */
+        }
+
+        .register-container h1 {
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .register-container .input-box {
+            position: relative;
+            width: 100%;
+            height: 50px;
+            margin-bottom: 20px;
+        }
+
+        .register-container input[type="text"] {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 40px;
+            font-size: 16px;
+            color: #333;
+            padding: 10px 20px;
+        }
+
+        .register-container input[type="text"]::placeholder {
+            color: #333;
+        }
+
+        .register-container button {
+            width: 100%;
+            height: 45px;
+            background:linear-gradient(298deg, #090808, #858383);
+            border: none;
+            border-radius: 40px;
+            color:  linear-gradient(135deg, #090808, #8a8484);
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow:-13px 20px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .register-container button:hover {
+            background-color:  linear-gradient(135deg, #090808, #8a8484);
+        }
+
+        .register-container .login-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+       .register-container .login-link a {
+    color: rgb(128, 0, 128); /* RGB purple color */
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.register-container .login-link a:hover {
+    color: rgb(75, 0, 130); /* Darker RGB purple for hover effect */
+    text-decoration: underline;
+}
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <h1>Student Registration</h1>
+        <form method="post" action="{% url 'student_register' %}">
+            {% csrf_token %}
+            <div class="input-box">
+                <input type="text" id="usn" name="usn" placeholder="USN" required>
+            </div>
+            <div class="input-box">
+                <input type="text" id="name" name="name" placeholder="Name" required>
+            </div>
+            <button type="submit">Register</button>
+            <div class="login-link">
+                <a href="{% url 'student_login' %}">Already registered? Login here</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

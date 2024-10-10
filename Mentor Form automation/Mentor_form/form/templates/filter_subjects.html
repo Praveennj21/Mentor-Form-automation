@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filter Subjects</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('path_to_your_background_image.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            color: rgb(40, 40, 40);
+            font-family: 'Poppins', sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(8px);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: linear-gradient(135deg, #00274d, #008080);
+            font-size: 2.5rem;
+            font-weight: 600;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            font-weight: 500;
+            color: rgb(60, 60, 60);
+            font-size: 1.1rem;
+        }
+        .form-group input, .form-group select {
+            border-radius: 6px;
+            border: 1px solid rgb(220, 220, 220);
+            padding: 12px;
+            width: 100%;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            font-family: 'Roboto', sans-serif;
+        }
+        .form-group input:focus, .form-group select:focus {
+            border-color: rgb(53, 153, 255);
+            box-shadow: 0 0 8px rgba(53, 153, 255, 0.3);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #00274d, #008080);
+            border-color: rgb(53, 153, 255);
+            padding: 12px 24px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+            box-shadow: 0 6px 12px rgba(53, 153, 255, 0.2);
+            font-family: 'Roboto', sans-serif;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, rgb(40, 130, 255), rgb(0, 105, 217));
+            border-color: rgb(40, 130, 255);
+            box-shadow: 0 8px 16px rgba(40, 130, 255, 0.3);
+        }
+        .btn-primary:active {
+            background: linear-gradient(135deg, rgb(30, 100, 200), rgb(0, 87, 179));
+            border-color: rgb(30, 100, 200);
+            box-shadow: 0 6px 12px rgba(30, 100, 200, 0.3);
+        }
+        .subject-container {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: rgba(53, 153, 255, 0.1);
+            border-radius: 8px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .list-group-item {
+            border-radius: 8px;
+            background-color: rgb(255, 255, 255);
+            border: 1px solid rgb(220, 220, 220);
+            transition: background-color 0.3s, border-color 0.3s;
+            font-family: 'Roboto', sans-serif;
+        }
+        .list-group-item:hover {
+            background-color: rgb(53, 153, 255);
+            color: rgb(255, 255, 255);
+            border-color: rgb(53, 153, 255);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Filter Subjects</h1>
+        <form method="GET" action="{% url 'filter_subjects' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </form>
+
+        {% if subjects %}
+            <div class="subject-container">
+                <h3 class="text-center">Available Subjects</h3>
+                <ul class="list-group">
+                    {% for subject in subjects %}
+                        <li class="list-group-item">{{ subject.subject_name }} (Code: {{ subject.subject_code }})</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

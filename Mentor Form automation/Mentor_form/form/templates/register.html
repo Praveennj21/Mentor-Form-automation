@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url('{% static "l.jpg" %}') no-repeat center center;
+    background-size: cover;
+    background-position: center;
+}
+
+.register-container {
+    width: 400px;
+    background: rgba(255, 255, 255, 0.5); /* Increased transparency */
+    border: 2px solid rgba(255, 255, 255, 0.2); /* Lighter border for better blend */
+    border-radius: 20px;
+    padding: 30px 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Slightly stronger shadow for contrast */
+    backdrop-filter: blur(15px); /* Maintain the blur effect */
+}
+
+.register-container h1 {
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.register-container .form-group {
+    margin-bottom: 20px;
+}
+
+.register-container .form-control {
+    border-radius: 25px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    color: #333;
+    padding: 15px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease;
+    background: rgba(255, 255, 255, 0.9); /* Slight transparency for inputs */
+}
+
+.register-container .form-control::placeholder {
+    color: #aaa;
+}
+
+.register-container .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+}
+
+.register-container button {
+    width: 100%;
+    height: 45px;
+    background: linear-gradient(135deg, #090808, #8a8484); /* Adjust gradient */
+    border: none;
+    border-radius: 25px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease;
+}
+
+.register-container button:hover {
+    background: linear-gradient(135deg, #8a8484, #090808); /* Adjust hover gradient */
+}
+
+.register-container .login-link {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.register-container .login-link a {
+    color: rgb(128, 0, 128); /* RGB purple color */
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.register-container .login-link a:hover {
+    color: rgb(75, 0, 130); /* Darker RGB purple for hover effect */
+    text-decoration: underline;
+}
+
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <h1>Register</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.as_p }}
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+        <div class="login-link">
+            <a href="{% url 'login' %}">Already have an account?<br> Login here.</a>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies (optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.10/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

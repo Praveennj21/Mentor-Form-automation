@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Detail</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #e9ecef;
+            color: #212529;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #343a40;
+            color: #ffffff;
+            padding-top: 20px;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+        }
+
+        .sidebar h1 {
+            font-size: 1.5rem;
+            color: #ffffff;
+            padding: 0 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .sidebar li {
+            margin-bottom: 15px;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 1rem;
+            padding: 12px 20px;
+            display: block;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+            background-color: #495057;
+        }
+
+        .sidebar a:hover {
+            background-color: #007bff;
+        }
+
+        .container {
+            margin-left: 270px;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            width: calc(100% - 300px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #007bff;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .detail-section {
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .detail-section h2 {
+            color: #007bff;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #007bff;
+            padding-bottom: 5px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        .detail-item label {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #495057;
+            flex: 1;
+            text-align: right;
+            padding-right: 20px;
+        }
+
+        .detail-item p {
+            font-size: 1.1rem;
+            color: #212529;
+            margin: 0;
+            flex: 2;
+            text-align: left;
+        }
+
+        .btn-details {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #ffffff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 6px;
+            text-decoration: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn-details:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+ 
+    <div class="container">
+        <h1>Student Details</h1>
+
+        <!-- Personal Information Section -->
+        <div class="detail-section">
+            <h2>Personal Information</h2>
+            <div class="detail-item">
+                <label>Name:</label>
+                <p>{{ student.name }}</p>
+            </div>
+            <div class="detail-item">
+                <label>Address:</label>
+                <p>{{ student.address }}</p>
+            </div>
+            <div class="detail-item">
+                <label>Phone Number:</label>
+                <p>{{ student.phone_number }}</p>
+            </div>
+            <div class="detail-item">
+                <label>Father's Name:</label>
+                <p>{{ student.father_name }}</p>
+            </div>
+            <div class="detail-item">
+                <label>Father's Phone Number:</label>
+                <p>{{ student.father_phone_number }}</p>
+            </div>
+        </div>
+
+        <!-- Academic Information Section -->
+        <div class="detail-section">
+            <h2>Academic Information</h2>
+            <div class="detail-item">
+                <label>SSLC Marks:</label>
+                <p>{{ student.sslc_marks }}</p>
+            </div>
+            <div class="detail-item">
+                <label>High School Name:</label>
+                <p>{{ student.high_school_name }}</p>
+            </div>
+            <div class="detail-item">
+                <label>High School Passing Year:</label>
+                <p>{{ student.high_school_passing_year }}</p>
+            </div>
+            <div class="detail-item">
+                <label>PUC Marks:</label>
+                <p>{{ student.puc_marks }}</p>
+            </div>
+            <div class="detail-item">
+                <label>College Name:</label>
+                <p>{{ student.college_name }}</p>
+            </div>
+            <div class="detail-item">
+                <label>College Passing Year:</label>
+                <p>{{ student.college_passing_year }}</p>
+            </div>
+        </div>
+
+        <!-- Enrollment Information Section -->
+        <div class="detail-section">
+            <h2>Enrollment Information</h2>
+            <div class="detail-item">
+                <label>Year of Enrollment:</label>
+                <p>{{ student.year_of_enrollment }}</p>
+            </div>
+            <div class="detail-item">
+                <label>Year of Passing:</label>
+                <p>{{ student.year_of_passing }}</p>
+            </div>
+        </div>
+
+        <a href="{% url 'export_student_to_excel' student.id %}" class="btn-details">Export to Excel</a>
+        <a href="{% url 'student_detail_list' %}" class="btn-details">Go Back</a>
+    </div>
+</body>
+</html>

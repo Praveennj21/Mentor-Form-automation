@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computer Science Department</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f0f0f0;
+        }
+
+        header {
+                display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: linear-gradient(133deg, #000000, #005ef3);
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            position: relative;
+        }
+
+       h1 {
+    flex-grow: 1; /* Allow the heading to take up remaining space */
+    text-align: center; /* Center the heading */
+    margin: 0; /* Remove default margin */
+}
+.logo {
+    width: 80px; /* Increased size of the logo */
+    height: auto;
+    margin-right: 20px; /* Space between logo and heading */
+    margin-left: 10px; /* Small space from the left edge */
+}
+      /* Hamburger Menu */
+        .hamburger-menu {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: inline-block;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .hamburger-menu div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 4px 0;
+            transition: 0.4s;
+        }
+
+        /* Navigation Menu */
+        nav {
+            background-color: #34495e;
+            width: 200px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            right: -200px;
+            transition: right 0.4s ease-in-out;
+            z-index: 5;
+            padding-top: 50px;
+        }
+
+        nav ul {
+            list-style-type: none;
+        }
+
+        nav ul li {
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        nav ul li:hover {
+            background-color: #2c3e50;
+        }
+
+
+.bigpic {
+    position: relative; /* Corrected spelling of 'position' */
+    width: 100%;
+    height: 300px; /* Increased height for a more impactful image */
+    background: url('big.jpg') no-repeat center center; /* Centered and prevented repeat */
+    background-size: cover; /* Ensures the image covers the area */
+    display: block;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Added shadow for depth */
+}
+
+.bigletters {
+    position: absolute;
+    top: 50%; /* Centered vertically */
+    left: 50%; /* Centered horizontally */
+    transform: translate(-50%, -50%); /* Centered absolutely */
+    font-size: 4em; /* Increased font size for better visibility */
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* Added text shadow for better readability */
+    font-weight: bold; /* Added boldness for emphasis */
+    text-align: center; /* Centered text alignment */
+    max-width: 90%; /* Added max-width to ensure text doesn’t overflow */
+}
+
+
+/* Gallery Section Styles */
+.gallery-section {
+    background-color: #f8f9fa;
+    padding: 40px 0;
+    text-align: center;
+}
+
+.gallery-section h2 {
+    margin-bottom: 30px;
+    font-size: 32px;
+    color: #333;
+    font-family: 'Arial', sans-serif; /* Modern font style */
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 images per row */
+    gap: 20px; /* Increased gap for better spacing */
+    justify-content: center;
+    padding: 0 20px; /* Add padding for responsiveness */
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px; /* More rounded corners */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Deeper shadow for a more pronounced effect */
+    transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out; /* Smooth transitions */
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensure images cover the card */
+    display: block;
+    border-radius: 12px; /* Match the border radius */
+    transition: transform 0.4s ease-in-out; /* Smooth zoom effect */
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1); /* Zoom effect on image hover */
+}
+
+.gallery-item:hover {
+    transform: scale(1.05); /* Slight lift effect on hover */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+}
+
+.gallery-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out; /* Smooth overlay transition */
+    padding: 20px;
+    text-align: center;
+    border-radius: 12px; /* Match the border radius */
+}
+
+.gallery-item:hover .gallery-overlay {
+    opacity: 1;
+}
+
+.gallery-overlay h3 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+}
+
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 20px; /* Increased padding for a more spacious look */
+    background-color: #f4f4f4; /* Light background color for contrast */
+    border-radius: 12px; /* Rounded corners for the section */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Enhanced shadow for depth */
+}
+
+.description {
+    width: 55%;
+    padding-right: 30px; /* Increased padding for better spacing */
+}
+
+.description h2 {
+    font-size: 2.5em; /* Larger font size for a stronger headline */
+    margin-bottom: 20px; /* Increased margin for better separation */
+    color: #333; /* Darker color for better readability */
+    font-family: 'Arial', sans-serif; /* Modern font style */
+}
+
+.description p {
+    font-size: 1.2em;
+    line-height: 1.8; /* Increased line height for better readability */
+    color: #666; /* Slightly lighter color for the text */
+    font-family: 'Georgia', serif; /* Elegant font style for a professional look */
+}
+
+.college-photo {
+    width: 40%;
+    text-align: right;
+}
+
+.college-photo img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px; /* Rounded corners for the image */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Enhanced shadow for the image */
+    transition: transform 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.college-photo img:hover {
+    transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+@media (max-width: 768px) {
+    .content {
+        flex-direction: column;
+        padding: 20px; /* Reduced padding for smaller screens */
+        background-color: #fff; /* Lighter background for mobile view */
+        box-shadow: none; /* Remove shadow on mobile */
+    }
+
+    .description, .college-photo {
+        width: 100%;
+        text-align: center;
+    }
+
+    .description {
+        padding-right: 0;
+        margin-bottom: 20px; /* Space between description and image */
+    }
+
+    .college-photo {
+        margin-top: 20px;
+    }
+}
+
+
+
+
+        /* Main Content */
+        .content {
+            padding: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .description {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+/* Head of the Department Section Styles */
+/* Head of the Department Section Styles */
+.hod-section {
+    background-color: #f8f9fa;
+    padding: 40px 0;
+    text-align: center;
+}
+
+.hod-profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px; /* Space between the two columns */
+}
+
+.hod-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 50%; /* Adjust as needed */
+}
+
+.hod-photo {
+    border-radius: 50%;
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    margin-bottom: 20px;
+    margin:10px;
+    padding:10px;
+    box-shadow:6px -7px 20px 20px rgb(78 80 113 / 46%); 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.hod-details {
+    max-width: 100%;
+}
+
+.hod-details h2 {
+    margin-bottom: 15px;
+    font-size: 28px;
+    color: #333;
+}
+
+.hod-details p {
+    margin: 10px 0;
+    color: #555;
+}
+
+.hod-details a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.hod-details a:hover {
+    text-decoration: underline;
+}
+
+/* Additional Department Image Styles */
+.department-image {
+    max-width: 50%; /* Adjust as needed */
+    text-align: center; /* Center align the image */
+}
+
+.department-image img {
+    width: 100%;
+    max-width: 500px; /* Adjust the max width of the image */
+    height: auto;
+    border-radius: 8px; /* Optional: rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: shadow for better visibility */
+}
+
+
+/* Add a gradient background to the text */
+h2 {
+  font-family: 'Arial', sans-serif; /* Choose a stylish font */
+  font-size: 3rem; /* Adjust size as needed */
+  font-weight: bold; /* Make the text bold */
+  background: linear-gradient(133deg, #000000, #005ef3); /* Gradient color */
+  -webkit-background-clip: text; /* Apply gradient to text */
+  -webkit-text-fill-color: transparent; /* Hide default text color */
+  text-align: center; /* Center align the text */
+  margin: 20px 0; /* Add some space around */
+  position: relative; /* Position for animation */
+  overflow: hidden; /* Hide any overflow */
+}
+
+/* Create a glowing effect with animation */
+h2::before {
+  content: ''; /* Add an empty content */
+  position: absolute; /* Position it absolutely */
+  left: 0; /* Align to left */
+  top: 0; /* Align to top */
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background: rgba(255, 255, 255, 0.2); /* Light color for glow */
+  filter: blur(10px); /* Blur for glowing effect */
+  animation: glow 1.5s infinite; /* Animation for glowing */
+}
+
+/* Define the glowing animation */
+@keyframes glow {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+
+
+
+
+
+.faculty-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px; /* Add padding around the section */
+    background-color: #f9f9f9; /* Light background for the section */
+}
+
+.faculty-card {
+    background-color: #fff;
+    border-radius: 12px; /* More rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Deeper shadow for 3D effect */
+    width: calc(25% - 20px);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition effects */
+    position: relative;
+}
+
+.faculty-card img {
+    width: 180px; /* Increased size of the image */
+    height: 180px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    border: 3px solid #3498db; /* Border around the image */
+    transition: border-color 0.3s;
+}
+
+.faculty-card h3 {
+    margin: 10px 0;
+    font-size: 1.2em; /* Larger font size */
+    color: #333; /* Darker color for better contrast */
+}
+
+.faculty-card p {
+    color: #777; /* Lighter color for the description */
+}
+
+.faculty-card:hover {
+    transform: translateY(-10px); /* Lift the card on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Increase shadow on hover */
+}
+
+.faculty-card:hover img {
+    border-color: #2980b9; /* Change border color on hover */
+}
+
+/* Floating Section for Photos */
+.floating-section {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #3498db;
+    color: white;
+    padding: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.floating-section:hover {
+    background-color: #2980b9; /* Darker background on hover */
+    transform: scale(1.1); /* Slightly enlarge on hover */
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .faculty-card {
+        width: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 480px) {
+    .faculty-card {
+        width: 100%;
+    }
+}footer {
+  background: linear-gradient(to right, #2c3e50, #4ca1af);
+  padding: 40px 0;
+  color: #fff;
+  position: relative;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.width-40 {
+  flex: 1 1 40%;
+  margin-bottom: 20px;
+}
+
+.width-30 {
+  flex: 1 1 30%;
+  margin-bottom: 20px;
+}
+
+.footer-about h3, .footer-contact h3 {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.footer-about p, .footer-contact p {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.contact-link {
+  color: #ff6347;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.contact-link:hover {
+  color: #ffb6c1;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.social-icons a {
+  display: inline-block;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.social-icons a img {
+  width: 30px;
+  height: 30px;
+}
+
+.social-icons a:hover {
+  background-color: #ff6347; 
+  transform: translateY(-5px); 
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); 
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 14px;
+}
+
+footer:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background-color: #ff6347;
+}
+
+
+.footer-section {
+    background-color: #f9f9f9; /* Light background color for a clean look */
+    color: #333; /* Dark text color for contrast */
+    padding: 60px 20px; /* Increased padding for spaciousness */
+    position: relative;
+    border-top: 5px solid #3498db; /* Light blue border for emphasis */
+}
+
+.footer-section h3 {
+    font-size: 2em; /* Larger font size for emphasis */
+    margin-bottom: 25px; /* Increased margin for spacing */
+    position: relative;
+    padding-bottom: 15px; /* Padding for the underline effect */
+    color: #333; /* Dark text color */
+    border-bottom: 3px solid #3498db; /* Matching border for a cohesive look */
+    font-family: 'Arial', sans-serif; /* Modern font style */
+}
+
+.footer-about p,
+.footer-contact p {
+    font-size: 1.2em; /* Slightly larger font size for readability */
+    color: #ffffff; /* Medium grey for text */
+    line-height: 1.8; /* Increased line height for readability */
+    margin-bottom: 20px; /* Increased margin for spacing */
+    transition: color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+}
+
+.footer-about p:hover,
+.footer-contact p:hover {
+    color: #3498db; /* Change color on hover for emphasis */
+    transform: translateX(5px); /* Subtle movement effect */
+}
+
+.footer-contact p i {
+    margin-right: 15px; /* Increased margin for spacing */
+    font-size: 1.3em; /* Larger icons for better visibility */
+}
+
+.footer-social {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap; /* Wrap icons for responsiveness */
+    margin-top: 20px; /* Space above social icons */
+}
+
+.footer-social a {
+    font-size: 1.8em; /* Larger social icons */
+    color: #3498db; /* Light blue color for icons */
+    margin-right: 25px; /* Increased spacing between icons */
+    transition: color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+}
+
+.footer-social a:hover {
+    color: #2980b9; /* Darker blue on hover */
+    transform: scale(1.3); /* Zoom effect on hover */
+}
+
+.footer-bottom {
+    background-color: #e9e9e9; /* Light grey background for the bottom section */
+    padding: 15px 20px; /* Reduced padding for a compact look */
+    text-align: center;
+    position: relative; /* Changed to relative positioning */
+    border-top: 1px solid #ccc; /* Light grey border at the top */
+}
+
+.footer-bottom p {
+    margin: 0;
+    font-size: 1.1em; /* Slightly larger font size */
+    color: #666; /* Medium grey for text */
+    font-family: 'Arial', sans-serif; /* Consistent font style */
+}
+.footer-extra {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.extra-icon {
+    font-size: 1.8em; /* Larger icons */
+    color: #3498db; /* Light blue color for icons */
+    margin-right: 25px; /* Spacing between icons */
+    transition: color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+}
+
+.extra-icon:hover {
+    color: #2980b9; /* Darker blue on hover */
+    transform: scale(1.3); /* Zoom effect on hover */
+}
+
+.extra-icon.instagram {
+    color: #E4405F; /* Instagram brand color */
+}
+
+.extra-icon.whatsapp {
+    color: #25D366; /* WhatsApp brand color */
+}
+
+.extra-icon.linkedin {
+    color: #0A66C2; /* LinkedIn brand color */
+}
+
+.extra-icon.gmail {
+    color: #D14836; /* Gmail brand color */
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 20px; /* Added gap between sections */
+}
+
+.width-40,
+.width-30 {
+    padding: 10px; /* Added padding for spacing */
+}
+
+@media (max-width: 768px) {
+    .width-40,
+    .width-30 {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 30px; /* Increased margin for better spacing on mobile */
+    }
+
+    .footer-social {
+        justify-content: center;
+        margin-top: 30px; /* Increased margin for social icons on mobile */
+    }
+}
+
+    </style>
+</head>
+<body>
+    <header>
+    <img src="logo.jpg" alt="Computer Science Department Logo" class="logo">
+        <h1>STUDENT MENTORNSHIP</h1>
+        <div class="hamburger-menu" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </header>
+
+
+
+
+
+    <nav id="menu">
+        <ul>
+
+  <li><a href="{% url 'student_register' %}">Login as Student</a></li>
+      <li>  <a href="{% url 'professor_register' %}">Login as Professor</a></li>
+        <li> <a href="{% url 'hod_register' %}">HOD</a></li>
+     <li> <a href="{% url 'register' %}">ADMIN</a></li>
+        </ul>
+    </nav>
+
+<h1>PES INSTITUTE OF TECHNOLOGY AND MANAGEMENT</h1>
+
+<div class="bigpic">
+  <span class="bigletters">    </span>
+</div>
+
+<!-- Gallery Section -->
+<section class="gallery-section">
+    <div class="container">
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="activity1.jpeg" alt="Activity 1">
+                <div class="gallery-overlay">
+                    <p>Activity Description 1</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="activity2.jpeg" alt="Activity 2">
+                <div class="gallery-overlay">
+                    <p>Activity Description 2</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="activity3.jpeg" alt="Activity 3">
+                <div class="gallery-overlay">
+                    <p>Activity Description 3</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="avtivity4.jpeg" alt="Activity 4">
+                <div class="gallery-overlay">
+                    <p>Activity Description 4</p>
+                </div>
+            </div>
+            <!-- Add more gallery items as needed -->
+        </div>
+    </div>
+</section>
+
+
+  <div class="content">
+    <div class="description">
+        <h2>About the Department</h2>
+        <p>The Department of Computer Science & Engineering was established in 2007 and aimed to fulfil the demands of the software industry. The department offers high-quality technical education to its students with the help of its state-of-the-art computing facilities and by keeping pace with the latest technological developments.The students undergo in-house training, which includes advanced, skill enhancement and industrial training, bridging the gap between industry and academia.The Computer Science & Engineering program is accredited by the National Board of Accreditation (NBA) for three years from 2024 to 2027.</p>
+    </div>
+    <div class="college-photo">
+        <img src="department.jpg" alt="College Photo">
+    </div>
+</div>
+
+
+
+
+<!-- Head of the Department Section -->
+<section class="hod-section">
+    <div class="container">
+        <div class="hod-profile">
+            <div class="hod-info">
+                <img src="HOD.jpg" alt="Head of Department Photo" class="hod-photo">
+                <div class="hod-details">
+                    <h2>Dr. Arjun U</h2>
+                    <p><strong>Position:</strong> Head of Department</p>
+                    <p><strong>Email:</strong> <a href="hodcse@pestrust.edu.in">john.doe@xyzschool.com</a></p>
+                    <p><strong>Educational Qualification :</strong> Ph.D. in Cloud Computing, M.Tech. in Computer Science and Engineering, BE in Information Science and Engineering</p>
+                    <p><strong>Academic Experience :</strong> 15 years</p>
+
+                      </div>
+            </div>
+            <!-- Additional Department Image -->
+            <div class="department-image">
+                <img src="pesitm.jpg" alt="Department Image">
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<h2>Faculty</h2>
+        <div class="faculty-section" id="faculty">
+            <div class="faculty-card">
+                <img src="manu.jpg" alt="Faculty 1">
+                <h3>Dr. Manu A P</h3>
+                <p>Professor</p>
+            </div>
+            <div class="faculty-card">
+                <img src="chethan.jpg" alt="Faculty 2">
+                <h3>Dr. Chethan L S</h3>
+                <p>Associate Professor</p>
+            </div>
+            <div class="faculty-card">
+                <img src="raghavebdra.jpg" alt="Faculty 2">
+                <h3>Mr. Raghavendra K</h3>
+                <p>Associate Professor</p>
+            </div>
+            <div class="faculty-card">
+                <img src="prathiba.jpg" alt="Faculty 2">
+                <h3>Mrs.Prathibha S</h3>
+                <p>Associate Professor</p>
+            </div>
+            <div class="faculty-card">
+                <img src="sunli.jpg" alt="Faculty 2">
+                <h3>Mr. Sunilkumar H R</h3>
+                <p>Associate Professor</p>
+            </div>
+            <div class="faculty-card">
+                <img src="pradeep.jpg" alt="Faculty 2">
+                <h3>Mr. Pradeep K</h3>
+                <p>Associate Professor</p>
+            </div>
+            <div class="faculty-card">
+                <img src="rajesh.jpg" alt="Faculty 2">
+                <h3>Mr. Rajesh T H</h3>
+                <p>Associate Professor</p>
+            </div>
+            <div class="faculty-card">
+                <img src="manisha.jpg" alt="Faculty 2">
+                <h3>Mrs. Manisha K.M.</h3>
+                <p>Associate Professor</p>
+            </div>
+            <div class="faculty-card">
+                <img src="suchithra.jpg" alt="Faculty 2">
+                <h3>Ms. Suchitra H L</h3>
+                <p>Associate Professor</p>
+            </div>
+            <div class="faculty-card">
+                <img src="suchitha.jpg" alt="Faculty 2">
+                <h3>Mrs. Suchitha H S</h3>
+                <p>Associate Professor</p>
+            </div>
+            <div class="faculty-card">
+                <img src="vinutha.jpg" alt="Faculty 2">
+                <h3>Ms. Vinutha H M</h3>
+                <p>Associate Professor</p>
+            </div>
+            <div class="faculty-card">
+                <img src="sandeep.jpg" alt="Faculty 3">
+                <h3>Mr. Sandeep. K.H</h3>
+                <p>Assistant Professor</p>
+            </div>
+               <div class="faculty-card">
+                <img src="madhu.jpg" alt="Faculty 3">
+                <h3>Ms. Madhu D.</h3>
+                <p>Assistant Professor</p>
+            </div>
+               <div class="faculty-card">
+                <img src="chethanp.jpg" alt="Faculty 3">
+                <h3>Mr. Chethan P.J</h3>
+                <p>Lecturer</p>
+            </div>
+               <div class="faculty-card">
+                <img src="g.jpg" alt="Faculty 3">
+                <h3>Ms. Gagana G.R</h3>
+                <p>Lecturer</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Section for Photos -->
+    <div class="floating-section" onclick="openGallery()">
+        PESITM
+    </div>
+<footer>
+    <div class="container">
+        <div class="footer-about width-40">
+            <h3>About Us</h3>
+            <p>The Department of Computer Science & Engineering, established in 2007, offers top-tier education with advanced facilities and industry-focused training. Accredited by the NBA from 2024 to 2027, it ensures rigorous standards and industry relevance.</p>
+        </div>
+        <div class="footer-contact width-30">
+            <h3>Contact Us</h3>
+            <p><i class="fa fa-map-marker"></i> <a href="https://www.google.com/maps/place/P.E.S.+Institute+of+Technology+and+Management/@13.9631694,75.5071402,17z/data=!3m1!4b1!4m6!3m5!1s0x3bbba5eb38753875:0x239d4f69a53edc48!8m2!3d13.9631694!4d75.5097151!16s%2Fm%2F0gx_4zn?entry=ttu&g_ep=EgoyMDI0MDgyMy4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="contact-link">P.E.S. Institute of Technology and Management</a></p>
+            <p><i class="fa fa-phone"></i> +123 456 7890</p>
+            <p><i class="fa fa-envelope"></i> <a href="mailto:hodcse@pestrust.edu.in" class="contact-link">hodcse@pestrust.edu.in</a></p>
+        </div>
+        <div class="social-icons">
+            <a href="https://www.instagram.com/pesitm.cse/" target="_blank">
+              <img src="instagram.png" alt="Instagram" />
+            </a>
+            <a href="https://www.linkedin.com/groups/12725155/" target="_blank">
+              <img src="linkedin.png" alt="LinkedIn" />
+            </a>
+            <a href="https://web.whatsapp.com/" target="_blank">
+              <img src="whatsapp.png" alt="WhatsApp" />
+            </a>
+            <a href="mailto:hodcse@pestrust.edu.in" target="_blank">
+              <img src="gmail.png" alt="Email" />
+            </a>
+        </div>
+    </div>
+  
+    <div class="footer-bottom">
+        <p>Copyright 2024 © PES Institute of Technology and Management</p>
+    </div>
+</footer>
+
+
+
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById('menu');
+            if (menu.style.right === '0px') {
+                menu.style.right = '-200px';
+            } else {
+                menu.style.right = '0px';
+            }
+        }
+
+        function openGallery() {
+            alert('Opening photo gallery...');
+            // Add functionality to open a photo gallery here.
+        }
+    </script>
+</body>
+</html>
+

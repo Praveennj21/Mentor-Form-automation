@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts - Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- Custom styles -->
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #565e5d, #ACB6E5);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: right;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-logout {
+            background: linear-gradient(to right, #74ebd5, #ACB6E5);
+            color: #fff;
+            border: none;
+            font-weight: 700;
+            transition: background 0.3s, color 0.3s;
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: 2px solid transparent;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-logout:hover {
+            background: linear-gradient(to right, #ACB6E5, #74ebd5);
+            color: #fff;
+            border-color: transparent;
+        }
+
+        .container {
+            padding: 50px;
+            background: rgba(255, 255, 255, 0.9);
+            margin: 50px auto;
+            border-radius: 20px;
+            max-width: 1200px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            transition: box-shadow 0.3s, transform 0.3s;
+        }
+
+        .container:hover {
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            transform: translateY(-10px);
+        }
+
+        h1, .section-title {
+            font-size: 2.8rem;
+            margin-bottom: 40px;
+            font-weight: 700;
+            text-align: center;
+            color: #333;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .card {
+            margin: 20px;
+            padding: 30px;
+            background: #fff;
+            border: none;
+            border-radius: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+            color: #333;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .card img {
+            height: 120px;
+            width: 120px;
+            margin-bottom: 20px;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+            padding: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .card img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, #74ebd5, #ACB6E5);
+            border: none;
+            font-weight: 700;
+            transition: background 0.3s, color 0.3s;
+            color: #333;
+            padding: 10px 20px;
+            border-radius: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(to right, #ACB6E5, #74ebd5);
+            color: #fff;
+        }
+
+        .footer {
+            padding: 20px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            width: 100%;
+            margin-top: 50px;
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            .btn-primary {
+                font-size: 0.9rem;
+                padding: 10px 15px;
+            }
+
+            .btn-logout {
+                font-size: 0.9rem;
+                padding: 8px 15px;
+            }
+
+            .card {
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% load static %}
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="{% url 'logout' %}" class="btn btn-logout">LOG OUT</a>
+    </div>
+
+    <div class="container">
+        <header class="text-center mb-5">
+            <div class="header-content">
+              <!-- Add any header content here if needed -->
+            </div>
+        </header>
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="{% static 'addinginformation.png' %}" alt="Add Student Information">
+                    <h5 class="card-title">Add Student Information</h5>
+                    <a href="{% url 'student_detail_form' %}" class="btn btn-primary">ADD</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="{% static 'addingstudent.jpeg' %}" alt="Student Enrollment">
+                    <h5 class="card-title">Student Enrollment</h5>
+                    <a href="{% url 'add_student' %}" class="btn btn-primary">Enroll</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="{% static 'listofsubjects.jpeg' %}" alt="List of Subjects">
+                    <h5 class="card-title">List of Subjects</h5>
+                    <a href="{% url 'subject_list' %}" class="btn btn-primary">Subject List</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="{% static 'cgpasgpa.jpeg' %}" alt="SGPA">
+                    <h5 class="card-title">SGPA</h5>
+                    <a href="{% url 'calculate_sgpa' %}" class="btn btn-primary">SGPA</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="{% static 'cgpasgpa.jpeg' %}" alt="CGPA">
+                    <h5 class="card-title">CGPA</h5>
+                    <a href="{% url 'cgpa_results' %}" class="btn btn-primary">CGPA</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="{% static 'mentor.jpeg' %}" alt="Mentor Allotment List">
+                    <h5 class="card-title">Mentor Allotment List</h5>
+                    <a href="{% url 'mentor_allocation_list' %}" class="btn btn-primary">List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        &copy; 2024 PES Institute of Technology and Management. All rights reserved.
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

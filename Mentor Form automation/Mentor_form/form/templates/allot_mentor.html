@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentor Allotment</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #e9ecef 0%, #ffffff 100%);
+        }
+
+        h1 {
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            max-width: 700px;
+            margin: auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 12px;
+            display: block;
+            color: #343a40;
+        }
+
+        select {
+            padding: 14px;
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: #f8f9fa;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        select:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+            outline: none;
+        }
+
+        .students-list {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .students-list label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: #343a40;
+        }
+
+        .students-list input[type="checkbox"] {
+            margin-right: 12px;
+            transform: scale(1.2);
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .students-list input[type="checkbox"]:checked {
+            transform: scale(1.4);
+            color: #007bff;
+        }
+
+        input[type="submit"] {
+            padding: 14px 22px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 16px;
+            display: block;
+            width: 100%;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #218838;
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body>
+    <h1>Mentor Allotment</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="mentor">Select Mentor:</label>
+            <select name="mentor" id="mentor" required>
+                <option value="">--Select Mentor--</option>
+                {% for mentor in mentors %}
+                    <option value="{{ mentor.id }}">{{ mentor.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="students">Select Students:</label>
+            <div class="students-list">
+                {% for student in students %}
+                    <label>
+                        <input type="checkbox" name="students" value="{{ student.id }}">
+                        <span>{{ student.name }} ({{ student.usn }})</span>
+                    </label>
+                {% endfor %}
+            </div>
+        </div>
+
+        <input type="submit" value="Allot Mentor">
+    </form>
+</body>
+</html>

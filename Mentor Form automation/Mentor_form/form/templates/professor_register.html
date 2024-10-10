@@ -1,0 +1,127 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professor Registration</title>
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url('{% static "l.jpg" %}') no-repeat center center;
+    background-size: cover;
+    background-position: center;
+}
+
+.register-container {
+    width: 400px;
+    background: rgba(255, 255, 255, 0.5); /* More transparent background */
+    border: 2px solid rgba(255, 255, 255, 0.7); /* Lighter border for visibility */
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Softer shadow for a subtle effect */
+    backdrop-filter: blur(10px); /* Enhanced blur effect for a frosted glass look */
+}
+
+.register-container h1 {
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.register-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.register-container label {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.register-container input[type="text"],
+.register-container input[type="password"] {
+    width: 100%;
+    height: 50px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.7); /* Slightly more visible border */
+    border-radius: 25px;
+    font-size: 16px;
+    color: #333;
+    padding: 10px 20px;
+    margin-bottom: 20px; /* Spacing between inputs */
+}
+
+.register-container input[type="text"]::placeholder,
+.register-container input[type="password"]::placeholder {
+    color: #aaa;
+}
+
+.register-container button {
+    width: 100%;
+    height: 45px;
+    background: linear-gradient(135deg, #090808, #858383);
+    border: none;
+    border-radius: 25px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease;
+    margin-bottom: 15px; /* Spacing before the link */
+}
+
+.register-container button:hover {
+    background: linear-gradient(135deg, #858383, #090808);
+}
+
+.register-container .login-link {
+    text-align: center;
+}
+
+.register-container .login-link a {
+    color: rgb(128, 0, 128); /* RGB purple color */
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.register-container .login-link a:hover {
+    color: rgb(75, 0, 130); /* Darker RGB purple for hover effect */
+    text-decoration: underline;
+}
+
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <h1>Professor Registration</h1>
+        <form method="post" action="{% url 'professor_register' %}">
+            {% csrf_token %}
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Register</button>
+        </form>
+        <div class="login-link">
+            <a href="{% url 'professor_login' %}">Already have an account? Login here</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,140 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOD Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: url('{% static "l.jpg" %}') no-repeat center center;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .login-container {
+            width: 400px;
+            background: rgba(255, 255, 255, 0.5); /* Transparent background */
+            border: 2px solid rgba(255, 255, 255, 0.7); /* Lighter border for visibility */
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Softer shadow for contrast */
+            backdrop-filter: blur(10px); /* Frosted glass effect */
+        }
+
+        .login-container h1 {
+            font-size: 28px;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .login-container form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .login-container label {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: 100%;
+            height: 50px;
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.7); /* Slightly more visible border */
+            border-radius: 25px;
+            font-size: 16px;
+            color: #333;
+            padding: 10px 20px;
+            margin-bottom: 20px; /* Spacing between inputs */
+        }
+
+        .login-container input[type="text"]::placeholder,
+        .login-container input[type="password"]::placeholder {
+            color: #aaa;
+        }
+
+        .login-container input[type="submit"] {
+            width: 100%;
+            height: 45px;
+            background: linear-gradient(135deg, #090808, #858383);
+            border: none;
+            border-radius: 25px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s ease;
+            margin-bottom: 20px; /* Spacing before links */
+        }
+
+        .login-container input[type="submit"]:hover {
+            background: linear-gradient(135deg, #858383, #090808);
+        }
+
+        .login-container .links {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .login-container .links a {
+            color: rgb(128, 0, 128); /* RGB purple color */
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            display: block;
+            margin-bottom: 10px; /* Space between links */
+        }
+
+        .login-container .links a:hover {
+            color: rgb(75, 0, 130); /* Darker RGB purple for hover effect */
+            text-decoration: underline;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>HOD Login</h1>
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="Username" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+
+            <input type="submit" value="Login">
+        </form>
+        <div class="links">
+            <a href="{% url 'hod_register' %}">Register as HOD</a>
+            <a href="{% url 'index' %}">Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>

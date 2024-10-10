@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Marks</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(to bottom right, #f0f2f5, #e2e8f0);
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 60px auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 123, 255, 0.1), rgba(255, 255, 255, 0));
+            z-index: 0;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #007bff;
+            font-size: 2.5rem;
+            font-weight: 600;
+            z-index: 1;
+            position: relative;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            z-index: 1;
+            position: relative;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: #495057;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input, .form-group select {
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+            padding: 12px;
+            width: 100%;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.4);
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            padding: 12px 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: background-color 0.3s, border-color 0.3s, transform 0.2s;
+            z-index: 1;
+            position: relative;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+            transform: scale(1.05);
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            padding: 12px 20px;
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: background-color 0.3s, border-color 0.3s, transform 0.2s;
+            z-index: 1;
+            position: relative;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #4e555b;
+            transform: scale(1.05);
+        }
+
+        .alert {
+            margin-top: 20px;
+            font-size: 1rem;
+            border-radius: 8px;
+            background-color: #f8d7da;
+            color: #721c24;
+            z-index: 1;
+            position: relative;
+        }
+
+        .alert p {
+            margin: 0;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            z-index: 1;
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 20px;
+            }
+
+            .btn-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn-container .btn {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="{% url 'student_list' %}" class="btn btn-secondary mb-4">Back to List</a>
+        <h1>Enter Marks</h1>
+        {% if messages %}
+            <div class="alert alert-danger">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+        
+            <div class="form-group">
+                {{ form.sem.label_tag }}
+                {{ form.sem }}
+                {{ form.sem.errors }}
+            </div>
+            <div class="form-group">
+                {{ form.subject.label_tag }}
+                {{ form.subject }}
+                {{ form.subject.errors }}
+            </div>
+            <div class="form-group">
+                {{ form.ia_1.label_tag }}
+                {{ form.ia_1 }}
+                {{ form.ia_1.errors }}
+            </div>
+            <div class="form-group">
+                {{ form.ia_2.label_tag }}
+                {{ form.ia_2 }}
+                {{ form.ia_2.errors }}
+            </div>
+            <div class="form-group">
+                {{ form.ia_3.label_tag }}
+                {{ form.ia_3 }}
+                {{ form.ia_3.errors }}
+            </div>
+            <div class="form-group">
+                {{ form.assignment_1.label_tag }}
+                {{ form.assignment_1 }}
+                {{ form.assignment_1.errors }}
+            </div>
+            <div class="form-group">
+                {{ form.assignment_2.label_tag }}
+                {{ form.assignment_2 }}
+                {{ form.assignment_2.errors }}
+            </div>
+            <div class="form-group">
+                {{ form.project_marks.label_tag }}
+                {{ form.project_marks }}
+                {{ form.project_marks.errors }}
+            </div>
+            <div class="form-group">
+                {{ form.external_marks.label_tag }}
+                {{ form.external_marks }}
+                {{ form.external_marks.errors }}
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <div class="btn-container">
+            <a href="{% url 'import_marks' %}" class="btn btn-secondary">Import Marks</a>
+        </div>
+    </div>
+</body>
+</html>

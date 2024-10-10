@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentor Allocation List</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9; /* Light Gray Background */
+            color: #333;
+        }
+
+        h1 {
+            color: #004d40; /* Teal */
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+        }
+
+        .search-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        input[type="text"] {
+            padding: 12px;
+            font-size: 16px;
+            width: 80%;
+            max-width: 500px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border: none;
+        }
+
+        th {
+            background-color: #004d40; /* Teal */
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Mentor Row Styling */
+        .mentor-row {
+            background-color: #004d40; /* Dark Teal */
+            color: #ffffff;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-bottom: 4px solid #004d40; /* Thicker Line */
+        }
+
+        .mentor-name {
+            background-color: #004d40; /* Dark Teal */
+            color: #ffffff;
+            border-radius: 8px;
+        }
+
+        /* Student Row Styling */
+        .student-row {
+            background-color: #ffffff; /* White */
+            color: #333;
+            border-bottom: 1px solid #ddd; /* Thin border for students */
+        }
+
+        .student-row:hover {
+            background-color: #e0f2f1; /* Light Teal Hover */
+        }
+
+        .no-students {
+            text-align: center;
+            color: #777;
+            font-style: italic;
+            background-color: #fafafa; /* Light Gray */
+            border-radius: 8px;
+        }
+
+        .mentor-row::before,
+        .mentor-row::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 10px; /* Width of the divisions */
+            height: 4px; /* Height of the line */
+            background-color: #004d40; /* Dark Teal */
+            transform: translateY(-50%);
+        }
+
+        .mentor-row::before {
+            left: -15px; /* Position of the left division */
+        }
+
+        .mentor-row::after {
+            right: -15px; /* Position of the right division */
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mentor Allocation List</h1>
+
+    <div class="search-container">
+        <input type="text" id="searchInput" onkeyup="searchFunction()" placeholder="Search for USN...">
+    </div>
+
+    <table id="mentorTable">
+        <thead>
+            <tr>
+                <th>Student USN</th>
+                <th>Mentor Name </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for mentor in mentors %}
+                <tr class="mentor-row">
+                    <td class="mentor-name" rowspan="{{ mentor.student_set.count|add:1 }}">{{ mentor.name }}</td>
+                </tr>
+                {% for student in mentor.student_set.all %}
+                    <tr class="student-row">
+                        <td class="student-usn">{{ student.usn }}</td>
+                    </tr>
+                {% empty %}
+                    <tr class="student-row">
+                        <td colspan="2" class="no-students">No students assigned</td>
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script>
+        function searchFunction() {
+            var input, filter, table, tr, td, i, j, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("mentorTable");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 0; i < tr.length; i++) {
+                // Handle mentor rows separately
+                if (tr[i].classList.contains("mentor-row")) {
+                    continue;
+                }
+
+                td = tr[i].getElementsByClassName("student-usn")[0];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+
+            // Handle mentor name row visibility
+            var mentorRows = table.getElementsByClassName("mentor-row");
+            for (j = 0; j < mentorRows.length; j++) {
+                var nextRow = mentorRows[j].nextElementSibling;
+                var visible = false;
+                while (nextRow && nextRow.classList.contains("student-row")) {
+                    if (nextRow.style.display !== "none") {
+                        visible = true;
+                        break;
+                    }
+                    nextRow = nextRow.nextElementSibling;
+                }
+                mentorRows[j].style.display = visible ? "" : "none";
+            }
+        }
+    </script>
+</body>
+</html>
